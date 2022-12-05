@@ -22,9 +22,9 @@ const ExpandMoreStyled = styled((props) => {
   marginLeft: "auto",
 }));
 
-const Post = () => {
+const Post = ({ image, title, author = {}, text, created_at }) => {
+  const { email, avatar } = author;
   const [expanded, setExpanded] = useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -33,21 +33,26 @@ const Post = () => {
     <>
       <Card sx={{ maxWidth: 345 }}>
         <CardHeader
-          avatar={<Avatar aria-label="recipe">R</Avatar>}
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          avatar={
+            <Avatar src={avatar && avatar} aria-label="recipe">
+              {email?.slice(0, 1).toUpperCase()}
+            </Avatar>
+          }
+          title={author.email}
+          subheader={created_at}
         />
         <CardMedia
           component="img"
           height="194"
-          image="/static/images/cards/paella.jpg"
-          alt="Paella dish"
+          image={image}
+          alt={`Изображение ${title}`}
         />
         <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            This impressive paella is a perfect party dish and a fun meal to
-            cook together with your guests. Add 1 cup of frozen peas along with
-            the mussels, if you like.
+          <Typography variant="h5" component="h2" gutterBottom>
+            {title}
+          </Typography>
+          <Typography variant="body2" noWrap color="text.secondary">
+            {text}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -64,11 +69,7 @@ const Post = () => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Method:</Typography>
-            <Typography paragraph>
-              Heat 1/2 cup of the broth in a pot until simmering, add saffron
-              and set aside for 5 minutes.
-            </Typography>
+            <Typography paragraph>{text}</Typography>
           </CardContent>
         </Collapse>
       </Card>
