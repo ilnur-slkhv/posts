@@ -6,13 +6,22 @@ import {
   CardHeader,
   CardMedia,
   Collapse,
+  Grid,
   IconButton,
   Typography,
 } from "@mui/material";
 import { Favorite, ExpandMore } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { useState } from "react";
-// import { styled } from "@mui/material/styles";
+import dayjs from "dayjs";
+
+import s from "./index.module.css";
+
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ru";
+
+dayjs.locale("ru");
+dayjs.extend(relativeTime);
 
 const ExpandMoreStyled = styled((props) => {
   const { expand, ...other } = props;
@@ -30,8 +39,8 @@ const Post = ({ image, title, author = {}, text, created_at }) => {
   };
 
   return (
-    <>
-      <Card sx={{ maxWidth: 345 }}>
+    <Grid sx={{ display: "flex" }} item xs={12} sm={6} md={4} lg={3}>
+      <Card className={s.card}>
         <CardHeader
           avatar={
             <Avatar src={avatar && avatar} aria-label="recipe">
@@ -39,7 +48,8 @@ const Post = ({ image, title, author = {}, text, created_at }) => {
             </Avatar>
           }
           title={author.email}
-          subheader={created_at}
+          // subheader={dayjs(created_at).format("D-MM-YYYY, dddd")}
+          subheader={dayjs(created_at).fromNow()}
         />
         <CardMedia
           component="img"
@@ -55,7 +65,7 @@ const Post = ({ image, title, author = {}, text, created_at }) => {
             {text}
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions sx={{ marginTop: "auto" }} disableSpacing>
           <IconButton aria-label="add to favorites">
             <Favorite />
           </IconButton>
@@ -73,7 +83,7 @@ const Post = ({ image, title, author = {}, text, created_at }) => {
           </CardContent>
         </Collapse>
       </Card>
-    </>
+    </Grid>
   );
 };
 

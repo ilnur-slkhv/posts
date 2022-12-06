@@ -31,7 +31,7 @@ export const postData = [
     author: {
       name: "Иван Иванов",
       about: "Писатель",
-      avatar: "https://react-learning.ru/image-compressed/default-image.jpg",
+      avatar: "",
       _id: "622bd81b06c7d323b8ae4614",
       email: "maxim_91@inbox.ru",
       __v: 0,
