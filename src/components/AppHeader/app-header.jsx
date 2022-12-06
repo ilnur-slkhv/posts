@@ -1,9 +1,11 @@
-import { AppBar, IconButton, Toolbar, Typography, Button } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { Menu } from "@mui/icons-material";
+
+import s from "./index.module.css";
 
 const AppHeader = () => {
   return (
-    <AppBar position="static">
+    <AppBar className={s.header} position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Реактивные посты
@@ -17,7 +19,6 @@ const AppHeader = () => {
         >
           <Menu />
         </IconButton>
-        {/* <Button color="inherit">Login</Button> */}
       </Toolbar>
     </AppBar>
   );
